@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Third-party apps
     'rest_framework',
-    'knox',
+    'rest_framework.authtoken',
+    # 'knox',
     'channels',
     'corsheaders',
     # Local apps
@@ -169,12 +170,22 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.User'
 
 
-#KNOX AETTINGS
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',)
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+            'rest_framework.permissions.IsAuthenticated',
+        ],
 }
 
-REST_KNOX = {
-    'USER_SERIALIZER': 'accounts.serializers.UserSerializer',
-    'TOKEN_TTL': timedelta(days=1),
-}
+
+#KNOX AETTINGS
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',)
+# }
+
+# REST_KNOX = {
+#     'USER_SERIALIZER': 'accounts.serializers.UserSerializer',
+#     'TOKEN_TTL': timedelta(days=1),
+# }

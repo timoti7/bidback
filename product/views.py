@@ -6,8 +6,8 @@ from django.views import View
 import json
 from django.middleware.csrf import get_token
 from rest_framework.views import APIView
-from knox.auth import TokenAuthentication
-# from rest_framework.authentication import TokenAuthentication
+# from knox.auth import TokenAuthentication
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework import status
@@ -34,7 +34,7 @@ class VehicleViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class RealEstateOfferView(APIView):
-    permission_classes = [IsAuthenticated]  # Kullanıcı yetkilendirme kontrolü
+    # permission_classes = [IsAuthenticated]  # Settings'de bu ayarı yaptık. Burada gerek yok tekrar.
 
     def get(self, request, product_id):
         offers = Offer.objects.filter(product_id=product_id)

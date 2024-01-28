@@ -42,7 +42,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Up to 15 digits allowed.")
-    role = models.ForeignKey(Role, on_delete=models.CASCADE, null=True, blank=True)
+    # role = models.ForeignKey(Role, on_delete=models.CASCADE, null=True, blank=True, default=1)
     phone = models.CharField(validators=[phone_regex], max_length=15, unique=True)
     fname = models.CharField(max_length=50, blank=True, null=True)
     lname = models.CharField(max_length=50, blank=True, null=True)

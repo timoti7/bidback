@@ -4,9 +4,10 @@ from rest_framework import viewsets
 from django.contrib.auth import get_user_model
 from accounts.serializers import RegisterSerializer
 from accounts.utils import otp_generator
-from knox.models import AuthToken
+# from knox.models import AuthToken
 from django.contrib.auth import login
 from rest_framework import permissions, generics, status
+from rest_framework.authtoken.models import Token
 import requests
 
 
@@ -114,18 +115,19 @@ class VerifyPhoneOTPView(APIView):
                 if user.exists():
                     user = user.first()
                     if user.otp == otp:
+                        token, created = Token.objects.get_or_create(user=user)
                         login(request, user)
                         return Response({
                             'status': True,
                             'details': 'Login Successfully',
-                            'token': AuthToken.objects.create(user)[1],
+                            'token': token.key, # AuthToken.objects.create(user)[1],
                             'response': {
                                 'id': user.id,
-                                'name': user.fname + ' ' + user.lname,
-                                'email': user.email,
+                                # 'name': user.fname + ' ' + user.lname,
+                                # 'email': user.email,
                                 'phone': user.phone,
-                                'address': user.address,
-                                'city': user.city,
+                                # 'address': user.address,
+                                # 'city': user.city,
                             }})
                     else:
                         return Response({'message': 'OTP does not match'}, status=status.HTTP_400_BAD_REQUEST)

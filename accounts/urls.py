@@ -1,7 +1,7 @@
 from django.urls import path,include
 from accounts.views import *
 from rest_framework import routers
-from knox.views import LogoutView
+# from knox.views import LogoutView
 
 
 router = routers.DefaultRouter()

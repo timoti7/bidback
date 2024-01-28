@@ -30,4 +30,4 @@ class OfferSerializer(serializers.ModelSerializer):
         model = Offer
         fields = ['id', 'product', 'user', 'amount', 'timestamp']
 
-    user = serializers.ReadOnlyField(source='user.username')
+    # user = serializers.ReadOnlyField(source='user.username')
